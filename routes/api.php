@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\WxController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//小程序登录、授权
+Route::post('/wxLogin', [WxController::class, "login"]);
+
+////公告banner
+//Route::get("/bannerNotice", [CommonController::class, "bannerNotice"]);
+////咨询留言
+//Route::post("/saveMessage", [CommonController::class, "saveMessage"]);
+////新闻列表
+//Route::get("/newsList", [CommonController::class, "newsList"]);
+////新闻详情
+//Route::get("/newsDetail/{id}", [CommonController::class, "newsDetail"]);
+
+Route::group(["middleware" => "wxAuth"], function () {
+    //首页
+//    Route::get('/home', [HomeController::class, "index"]);
 });
+
+//测试
+Route::any('/test',
+    function () {
+        echo 1;
+    }
+);
