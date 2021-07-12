@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Worker;
+use App\Models\Us;
 use App\Services\Token;
 use Illuminate\Http\Request;
 use RedisDb;
@@ -52,9 +52,9 @@ class WxController extends Controller
         $session_key = $obj['session_key'];
 
         //获取用户信息
-        $num = Worker::query()->where("openid", $openid)->count();
+        $num = Us::query()->where("openid", $openid)->count();
         if ($num == 0) {
-            $newWorker = new Worker();
+            $newWorker = new Us();
             $newWorker->openid = $openid;
             $newWorker->save();
         }
@@ -77,9 +77,9 @@ class WxController extends Controller
             }
         }
 
-        Worker::query()->where("openid", $openid)->update($where);
+        Us::query()->where("openid", $openid)->update($where);
 
-        $worker = Worker::query()->where("openid", $openid)->first();
+        $worker = Us::query()->where("openid", $openid)->first();
 
         $token = Token::createToken([
             'openid' => $openid,

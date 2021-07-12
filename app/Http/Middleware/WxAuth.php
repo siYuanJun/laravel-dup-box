@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Worker;
+use App\Models\Us;
 use App\Services\Token;
 use Closure;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class WxAuth
     {
         $debug = $request->input("debug");
         if ($debug && $debug == "true") {
-            $userInfo = Worker::query()->where("id",2)->first();
+            $userInfo = Us::query()->where("id",2)->first();
         } else {
             if (!$request->input("token")) {
                 return response(reply("缺少参数token",1001));
@@ -29,7 +29,7 @@ class WxAuth
             if (empty($data)) {
                 return response(reply("token失效,请重新登录",1001));
             }
-            $userInfo = Worker::query()->where("openid",$data['openid'])->first();
+            $userInfo = Us::query()->where("openid",$data['openid'])->first();
             if (empty($userInfo)) {
                 return response(reply("系统错误",3));
             }

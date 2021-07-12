@@ -30,11 +30,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Worker extends Model
+
+class Us extends Model
 {
 //    use DefaultDatetimeFormat;
 
-    protected $table = 'worker';
+    protected $table = 'us';
     public $timestamps = true;
 
     const CREATED_AT = 'create_time';
@@ -75,25 +76,4 @@ class Worker extends Model
         $data = self::query()->find($id);
         return $data['name'] ?? "";
     }
-
-    public static function getAllWorker($cid)
-    {
-        $data = self::all();
-        if ($cid) {
-            $data->where("company_id", $cid);
-        }
-        return $data->pluck("name", "id");
-    }
-
-    public static function getWorkerIdByIdcards($idcards)
-    {
-        $data = self::query()->whereIn("idcards", $idcards)->select("id", "idcards")->get();
-        $data = $data->toArray();
-        $new = [];
-        foreach ($data as $value) {
-            $new[$value['idcards']] = $value['id'];
-        }
-        return $new;
-    }
-
 }

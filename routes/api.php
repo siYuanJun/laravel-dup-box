@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\WxController;
-use App\Http\Controllers\WorkerController;
+use App\Http\Controllers\UsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +21,6 @@ use App\Http\Controllers\WorkerController;
 //小程序登录、授权
 Route::post('/wxLogin', [WxController::class, "login"]);
 
-////公告banner
-//Route::get("/bannerNotice", [CommonController::class, "bannerNotice"]);
 ////咨询留言
 //Route::post("/saveMessage", [CommonController::class, "saveMessage"]);
 ////新闻列表
@@ -31,7 +29,7 @@ Route::post('/wxLogin', [WxController::class, "login"]);
 //Route::get("/newsDetail/{id}", [CommonController::class, "newsDetail"]);
 
 Route::group(["middleware" => "wxAuth"], function () {
-    Route::post('/getUserInfo',[WorkerController::class, "getUserInfo"]);
+    Route::post('/getUserInfo',[UsController::class, "getUserInfo"]);
 });
 
 //测试

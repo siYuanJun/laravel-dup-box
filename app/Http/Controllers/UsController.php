@@ -2,22 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Apply;
-use App\Models\Bankcard;
-use App\Models\ChinaArea;
-use App\Models\Collect;
-use App\Models\Company;
-use App\Models\Contract;
-use App\Models\Fadada;
-use App\Models\Information;
-use App\Models\Omit;
-use App\Models\OperateScreenshot;
-use App\Models\Paycost;
-use App\Models\Signlog;
-use App\Models\Task;
-use App\Models\Worker;
-use App\Models\WorkerBind;
-use App\Models\Worklog;
+use App\Models\Us;
 use App\Services\FaDaDaApi;
 use App\Services\TencentApi;
 use Encore\Admin\Grid\Filter\In;
@@ -26,7 +11,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use RedisDb;
 
-class WorkerController extends Controller
+class UsController extends Controller
 {
 
     const PageSize = 20;
@@ -53,7 +38,7 @@ class WorkerController extends Controller
     public function getUserInfo(Request $request)
     {
         $userInfo = $request->userInfo;
-//        $data = Worker::query()->find($userInfo->id);
+//        $data = Us::query()->find($userInfo->id);
 //        $data->backCard = Bankcard::query()->where("wid", $userInfo->id)->where("status", 0)->first();
         return reply($userInfo);
     }
@@ -65,7 +50,7 @@ class WorkerController extends Controller
     public function saveUserInfo(Request $request)
     {
         $userInfo = $request->userInfo;
-        $worker = Worker::query()->find($userInfo->id);
+        $worker = Us::query()->find($userInfo->id);
         $worker->name = $request->input("name") ?? "";
         $worker->sex = $request->input("sex") ?? "";
         $worker->age = $request->input("age") ?? "";
@@ -94,7 +79,7 @@ class WorkerController extends Controller
             return reply("参数错误",1);
         }
 
-        $search = Worker::query()->where("idcards",$idcard)->first();
+        $search = Us::query()->where("idcards",$idcard)->first();
         if ($search) {
             return reply("该身份证号已被绑定",2);
         }
@@ -103,15 +88,13 @@ class WorkerController extends Controller
         if ($res['code'] != 0) {
             return $res;
         }
-        $worker = Worker::query()->find($userInfo->id);
+        $worker = Us::query()->find($userInfo->id);
         $worker->name = $name;
         $worker->idcards = $idcard;
         $res = $worker->update();
         if (!$res) {
             return reply("绑定失败", 3);
         }
-        //根据身份证绑定甲方
-        WorkerBind::bindCompany($idcard);
         return reply();
     }
 
@@ -294,7 +277,7 @@ class WorkerController extends Controller
         }
         RedisDb::del("sms_" . $phone);
 
-        $update = Worker::query()->find($userInfo->id);
+        $update = Us::query()->find($userInfo->id);
         $update->name = $name;
         $update->update();
 
