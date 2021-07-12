@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\WxController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\WxController;
+use App\Http\Controllers\WorkerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,7 @@ Route::post('/wxLogin', [WxController::class, "login"]);
 //Route::get("/newsDetail/{id}", [CommonController::class, "newsDetail"]);
 
 Route::group(["middleware" => "wxAuth"], function () {
-    //首页
-//    Route::get('/home', [HomeController::class, "index"]);
+    Route::post('/getUserInfo',[WorkerController::class, "getUserInfo"]);
 });
 
 //测试

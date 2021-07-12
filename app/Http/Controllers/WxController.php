@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Worker;
 use App\Services\Token;
 use Illuminate\Http\Request;
@@ -14,10 +15,9 @@ use App\Services\WXBizDataCrypt;
 class WxController extends Controller
 {
 
-    CONST WXAPPID = "wx53166646d181fa2e";
-    CONST WXAPPSECRET = "0caa34ba029fdbeb1e2d1f30385f71c1";
-    CONST WXCODESESSIONURL = "https://api.weixin.qq.com/sns/jscode2session";
-
+    const WXAPPID = "wx53166646d181fa2e";
+    const WXAPPSECRET = "0caa34ba029fdbeb1e2d1f30385f71c1";
+    const WXCODESESSIONURL = "https://api.weixin.qq.com/sns/jscode2session";
 
 
     /**
@@ -31,7 +31,7 @@ class WxController extends Controller
         $iv = $request->input("iv");
 
         if (empty($code)) {
-            return reply("参数错误！",1);
+            return reply("参数错误！", 1);
         }
 
         $params = [
@@ -44,15 +44,15 @@ class WxController extends Controller
         $url = self::WXCODESESSIONURL . "?" . http_build_query($params);
 
         //登录校验
-        $obj = json_decode(file_get_contents($url),true);
+        $obj = json_decode(file_get_contents($url), true);
         if (isset($obj['errcode'])) {
-            return reply("小程序登录校验失败",2,$obj);
+            return reply("小程序登录校验失败", 2, $obj);
         }
         $openid = $obj['openid'];
         $session_key = $obj['session_key'];
 
         //获取用户信息
-        $num = Worker::query()->where("openid",$openid)->count();
+        $num = Worker::query()->where("openid", $openid)->count();
         if ($num == 0) {
             $newWorker = new Worker();
             $newWorker->openid = $openid;
@@ -64,7 +64,7 @@ class WxController extends Controller
             $pc = new WXBizDataCrypt(self::WXAPPID, $session_key);
             $errCode = $pc->decryptData($encryptedData, $iv, $data);
             if ($errCode != 0) {
-                return reply("加密数据错误！".$errCode,3);
+                return reply("加密数据错误！" . $errCode, 3);
             }
             $data = json_decode($data, true);
 
@@ -77,9 +77,9 @@ class WxController extends Controller
             }
         }
 
-        Worker::query()->where("openid",$openid)->update($where);
+        Worker::query()->where("openid", $openid)->update($where);
 
-        $worker = Worker::query()->where("openid",$openid)->first();
+        $worker = Worker::query()->where("openid", $openid)->first();
 
         $token = Token::createToken([
             'openid' => $openid,
@@ -87,11 +87,8 @@ class WxController extends Controller
             'userInfo' => $worker->toArray()
         ]);
 
-        return reply(['token' => $token,"userInfo"=>$worker]);
+        return reply(['token' => $token, "userInfo" => $worker]);
     }
-
-
-
 
 
 }

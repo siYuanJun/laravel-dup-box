@@ -20,7 +20,7 @@ class WxAuth
     {
         $debug = $request->input("debug");
         if ($debug && $debug == "true") {
-            $userInfo = Worker::query()->where("id",30)->first();
+            $userInfo = Worker::query()->where("id",2)->first();
         } else {
             if (!$request->input("token")) {
                 return response(reply("缺少参数token",1001));

@@ -32,38 +32,38 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Worker extends Model
 {
-    use DefaultDatetimeFormat;
+//    use DefaultDatetimeFormat;
 
-	protected $table = 'worker';
-	public $timestamps = true;
+    protected $table = 'worker';
+    public $timestamps = true;
 
     const CREATED_AT = 'create_time';
     const UPDATED_AT = null;
 
-	protected $casts = [
-		'age' => 'int',
-		'marry' => 'int',
-		'status' => 'int'
-	];
+    protected $casts = [
+        'age' => 'int',
+        'marry' => 'int',
+        'status' => 'int'
+    ];
 
-	protected $dates = [
-		'create_time'
-	];
+    protected $dates = [
+        'create_time'
+    ];
 
-	protected $fillable = [
-		'phone',
-		'name',
-		'sex',
-		'age',
-		'edu',
-		'home',
-		'polity',
-		'marry',
-		'image',
-		'create_time',
-		'idcards',
-		'status'
-	];
+    protected $fillable = [
+        'phone',
+        'name',
+        'sex',
+        'age',
+        'edu',
+        'home',
+        'polity',
+        'marry',
+        'image',
+        'create_time',
+        'idcards',
+        'status'
+    ];
 
     protected function serializeDate(DateTimeInterface $date)
     {
@@ -76,27 +76,24 @@ class Worker extends Model
         return $data['name'] ?? "";
     }
 
-
     public static function getAllWorker($cid)
     {
         $data = self::all();
         if ($cid) {
-            $data->where("company_id",$cid);
+            $data->where("company_id", $cid);
         }
-        return $data->pluck("name","id");
+        return $data->pluck("name", "id");
     }
-
-
 
     public static function getWorkerIdByIdcards($idcards)
     {
-       $data = self::query()->whereIn("idcards",$idcards)->select("id","idcards")->get();
-       $data = $data->toArray();
-       $new = [];
-       foreach ($data as $value) {
-           $new[$value['idcards']] = $value['id'];
-       }
-       return $new;
+        $data = self::query()->whereIn("idcards", $idcards)->select("id", "idcards")->get();
+        $data = $data->toArray();
+        $new = [];
+        foreach ($data as $value) {
+            $new[$value['idcards']] = $value['id'];
+        }
+        return $new;
     }
 
 }
