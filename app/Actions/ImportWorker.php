@@ -2,7 +2,7 @@
 
 namespace App\Actions;
 
-use App\Imports\WorkerImport;
+use App\Imports\UsImport;
 use Dcat\Admin\Actions\Action;
 use Dcat\Admin\Admin;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class ImportWorker extends Action
         $cid = $request->input('cid');
 
         if ($cid && $file && $file->isValid()) {
-            $data = Excel::toArray(new WorkerImport(), $file);
+            $data = Excel::toArray(new UsImport(), $file);
             $temp = [];
             foreach ($data[0] as $value) {
                 $temp = array_merge($temp, $value);
@@ -35,7 +35,7 @@ class ImportWorker extends Action
             }
             return $this->response()->success("绑定成功")->refresh();
         }
-        return $this->response()->error('请选择并上传正确的Excel文件');
+        return $this->response()->error('请选择并上传正确的 Excel 文件');
     }
 
     public function form()
@@ -47,7 +47,7 @@ class ImportWorker extends Action
         } else {
             $this->hidden("cid")->value($platId);
         }
-        $this->file('file', 'Excel文件（录入需要绑定人员的身份证号）');
+        $this->file('file', 'Excel 文件（录入需要绑定人员的身份证号）');
     }
 
 

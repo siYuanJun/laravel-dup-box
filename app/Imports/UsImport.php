@@ -6,7 +6,7 @@ namespace App\Imports;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Collection;
 
-class WorkerImport implements ToCollection
+class UsImport implements ToCollection
 {
     public function collection(Collection $collection)
     {
