@@ -8,7 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use DateTimeInterface;
-use Encore\Admin\Traits\DefaultDatetimeFormat;
+use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -33,7 +33,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Us extends Model
 {
-//    use DefaultDatetimeFormat;
+    use HasDateTimeFormatter;
 
     protected $table = 'us';
     public $timestamps = true;

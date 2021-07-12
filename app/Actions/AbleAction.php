@@ -5,20 +5,20 @@ namespace App\Actions;
 use App\Admin\Repositories\Us;
 use Dcat\Admin\Grid\RowAction;
 
-class DisableAction extends RowAction
+class AbleAction extends RowAction
 {
-    public $title = '禁用';
+    public $title = '恢复';
 
     public function handle()
     {
         $id = $this->row->id;
-        Us::query()->find($id)->update(["status" => 1]);
+        Us::query()->find($id)->update(["status" => 0]);
         return $this->response()->success("ok")->refresh();
     }
 
     public function dialog()
     {
-        $this->confirm('确定禁用？');
+        $this->confirm();
     }
 
 }

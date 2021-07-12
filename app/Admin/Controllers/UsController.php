@@ -2,13 +2,16 @@
 
 namespace App\Admin\Controllers;
 
-use App\Actions\ImportWorker;
-use App\Actions\LoadWorkerExcel;
+use App\Actions\AbleAction;
+use App\Actions\DisableAction;
+use App\Actions\ImportUs;
 use App\Admin\Repositories\Us;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
+use App\Admin\Extensions\UsExporter;
+use Dcat\Admin\Widgets\Table;
 
 class UsController extends AdminController
 {
@@ -21,86 +24,82 @@ class UsController extends AdminController
     {
         return Grid::make(new Us(), function (Grid $grid) {
 //            $cid = Admin::user()->cid;
-//
 //            if ($cid) {
 //                $grid->model()->where("company_id","=",$cid);
 //            }
 
+//            $grid->export()->xlsx();
+            $grid->export(new UsExporter())->xlsx();
             $grid->fixColumns(3, -2);
             $grid->model()->orderByDesc("id");
-
             $grid->column('id')->sortable();
             $grid->column('phone');
-//            $grid->avatar('image');
-            $grid->column('name');
-
-//            $grid->column('name', "姓名")->expand(function ($model) {
+            $grid->column('image')->display(function ($val) {
+                return "<img height='30' src='" . $val . "' />";
+            });
+            $grid->column('name', "姓名")->expand(function ($model) {
+                $table = [];
 //                $bankCard = Bankcard::query()->where("wid",$this->id)->where("status",0)->first();
-//                $table = [];
 //                $table[] = [
 //                    "card" => $bankCard->card ?? "--",
 //                    "unit" => $bankCard->unit ?? "--",
 //                    "phone" => $bankCard->phone ?? "--"
 //                ];
-//                return new Table(['银行卡号', '所属银行', '手机号'], $table);
-//            });
-
+                return new Table(['银行卡号', '所属银行', '手机号'], $table);
+            });
 //            $grid->column('company_id')->display(function () {
 //                return Company::getCompnayName($this->company_id);
 //            });
             $grid->column('sex')->display(function () {
-                return getStatus($this->sex,"sex");
+                return getStatus($this->sex, "sex");
             });
             $grid->column('idcards');
             $grid->column('age');
             $grid->column('edu')->display(function () {
-                return getStatus($this->edu,"edu");
+                return getStatus($this->edu, "edu");
             });
             $grid->column('home');
             $grid->column('polity')->display(function () {
-                return getStatus($this->polity,"polity");
+                return getStatus($this->polity, "polity");
             });
             $grid->column('marry')->display(function () {
-                return getStatus($this->marry,"marry");
+                return getStatus($this->marry, "marry");
             });
             $grid->column('create_time');
 
             $grid->column('status')->display(function () {
-                return getStatus($this->status,"default");
+                return getStatus($this->status, "default");
             })->label([
                 "0" => 'default',
                 "1" => 'danger'
             ]);
 
             $grid->disableCreateButton();
-//            $grid->disableExport();
 
-            $grid->filter(function($filter){
+            $grid->filter(function ($filter) {
                 $filter->disableIdFilter();
                 $filter->like('name');
                 $filter->like('phone');
             });
 
+            $grid->tools('<a class="btn btn-primary" target="_blank" href="/IDcard.xlsx"><i class="fa fa-download"></i>下载导入模版</a>');
             $grid->tools(function (Grid\Tools $tools) {
-//                $tools->append(new LoadWorkerExcel());
-//                $tools->append(new ImportWorker());
+                $tools->append(new ImportUs());
             });
 
-//            if($cid){
-//                $grid->disableActions();
-//            } else {
-//                $grid->actions(function ($actions) use ($cid) {
-//                    $actions->disableDelete();
-//                    $actions->disableView();
-//                    $actions->disableEdit();
-//                    $row = $actions->row;
-//                    if ($row->status == 0) {
-//                        $actions->add(new DisableAction());
-//                    } else {
-//                        $actions->add(new AbleAction());
-//                    }
-//                });
-//            }
+            // 禁用行工具操作
+//            $grid->disableActions();
+//            $grid->actions(function ($actions) {
+//                $actions->disableDelete();
+//                $actions->disableView();
+//                $actions->disableEdit();
+//                $row = $actions->row;
+//                if ($row->status == 0) {
+//                    $actions->append(new DisableAction());
+//                } else {
+//                    $actions->append(new AbleAction());
+//                }
+//            });
 
             $grid->disableRowSelector();
 
@@ -138,7 +137,7 @@ class UsController extends AdminController
                 if ($form->isCreating()) {
                     return 'unique:worker';
                 }
-            },["已存在"]);
+            }, ["已存在"]);
             $form->text('idcards')->required();
             $form->radio('sex')->options(config("status.sex"));
             $form->number('age')->max(100)->min(1)->required();

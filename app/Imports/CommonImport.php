@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
 
 class CommonImport implements ToCollection
 {
-
     public function collection(Collection $collection)
     {
         // TODO: Implement collection() method.
