@@ -22,6 +22,10 @@ class UsImportForm extends Form
             return $this->response()->error('请选择并上传正确的 Excel 文件');
         }
         $file = storage_path("/app/public/" . $file);
+        $ext = explode(".", $file);
+        if(end($ext) != 'xlsx') {
+            return $this->response()->error('请使用正确的 Excel 文件导入  ');
+        }
         $data = Excel::import($file)->toArray();
         $temp = [];
         foreach ($data[0] as $value) {
@@ -33,7 +37,7 @@ class UsImportForm extends Form
         $temp = array_unique($temp);
 
         foreach ($temp as $key => $value) {
-//            dump($key, $value);
+            dump($key, $value);
         }
 
         return $this->response()->success("导入成功")->refresh();

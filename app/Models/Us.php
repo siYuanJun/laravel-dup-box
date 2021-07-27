@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use DateTimeInterface;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Mockery\Matcher\Any;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * Class Worker
@@ -71,9 +73,8 @@ class Us extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public static function getWorkerName($id)
+    public static function getWorkerName(Integer $id, array $field = ["*"])
     {
-        $data = self::query()->find($id);
-        return $data['name'] ?? "";
+        return self::query()->find($id, $field);
     }
 }
