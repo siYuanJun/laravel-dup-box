@@ -21,7 +21,7 @@ class InfoController extends AdminController
     {
         return Grid::make(Info::with(['column']), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('column.title', '分类名称');
+            $grid->column('column.title', '分类名称')->label('blue');
             $grid->column('title')->limit(30);
             $grid->column('subtitle');
             $grid->column('author');
@@ -29,7 +29,7 @@ class InfoController extends AdminController
             $grid->column('edit_name');
             $grid->column('linkurl');
             $grid->column('hits');
-            $grid->column('pic');
+            $grid->column('pic')->image("", 30);
             $grid->column('property')->checkbox(Ext::selectOptions(2));
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();

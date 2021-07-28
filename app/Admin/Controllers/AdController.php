@@ -19,13 +19,13 @@ class AdController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new Ad(), function (Grid $grid) {
+        return Grid::make(Ad::with(['extTing']), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('title');
             $grid->column('code');
-            $grid->column('type');
+            $grid->column('extTing.title', '类型');
             $grid->column('ordernum');
-            $grid->column('pic');
+            $grid->column('pic')->image();
             $grid->column('linkurl');
 
             $grid->filter(function (Grid\Filter $filter) {

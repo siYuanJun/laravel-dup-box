@@ -15,4 +15,9 @@ class Ad extends Model
     {
         return $this->hasMany(AdTing::class, 'ad_id');
     }
+
+    public function extTing()
+    {
+        return $this->belongsTo(Ext::class, 'type');
+    }
 }
