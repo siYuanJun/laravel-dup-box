@@ -5,8 +5,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Controllers\v1\WxController;
-use App\Http\Controllers\v1\UsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +26,9 @@ Route::group([
     });
 
     // 小程序登录、授权
-    $router->post('/wxLogin', [WxController::class, "login"]);
+    $router->post('/wxLogin', "WxController@login");
 
     $router->group(["middleware" => "wxAuth"], function (Router $router) {
-        $router->post('/getUserInfo', [UsController::class, "getUserInfo"]);
+        $router->post('/getUserInfo',"UsController@getUserInfo");
     });
 });

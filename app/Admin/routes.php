@@ -15,5 +15,8 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->resource('/us', 'UsController');
     $router->resource('/column', 'ColumnController');
+    $router->resource('/ext', 'ExtController');
+    $router->resource('/info', 'InfoController');
+    $router->resource('/ad', 'AdController');
 
 });

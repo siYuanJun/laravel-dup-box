@@ -1,8 +1,8 @@
 <?php
 return [
     'labels' => [
-        'Column' => '栏目',
-        'column' => 'Column',
+        'Ext' => '扩展分类',
+        'ext' => 'Ext',
     ],
     'fields' => [
         'parent_id' => '父级分类ID',

@@ -14,6 +14,10 @@ return [
         'scaffold'      => '代码生成器',
         'icons'         => '图标',
         'information'   => '信息',
-        'us'            => '用户'
+        'us'            => '用户',
+        'column'        => '栏目',
+        'ad'            => '碎片调用',
+        'info'          => '文章',
+        'ext'           => '扩展分类'
     ],
 ];

@@ -10,16 +10,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Mockery\Matcher\Any;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\New_;
 use Spatie\EloquentSortable\Sortable;
 
-class Column extends Model implements Sortable
+class Ext extends Model implements Sortable
 {
     use HasDateTimeFormatter,
         ModelTree {
         ModelTree::boot as treeBoot;
     }
 
-    protected $table = 'column';
+    protected $table = 'ext';
 
     protected $fillable = ['parent_id', 'title', 'pic', 'order', 'content'];
 
@@ -30,10 +33,9 @@ class Column extends Model implements Sortable
      *
      * @return array
      */
-    public static function selectOptions(\Closure $closure = null)
+    public static function selectOptions($parentld = 0) : Array
     {
-        $options = (new static())->withQuery($closure)->buildSelectOptions();
-
+        $options = (new static())->withQuery()->buildSelectOptions([], $parentld);
         return collect($options)->all();
     }
 

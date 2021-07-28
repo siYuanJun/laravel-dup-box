@@ -2,7 +2,8 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Column;
+use App\Models\Ext;
+use App\Models\Ext as Model;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -10,15 +11,16 @@ use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Models\Permission;
+use Dcat\Admin\Show;
 use Dcat\Admin\Tree;
 
-class ColumnController extends AdminController
+class ExtController extends AdminController
 {
-    public function index(Content $content)
+    public function index(Content $content) : Content
     {
         return $content->header(admin_trans_label())
             ->body(function (Row $row) {
-                $tree = new Tree(new Column);
+                $tree = new Tree(new Model);
                 $tree->branch(function ($branch) {
                     if($branch['pic']) {
                         $src = "/uploads/{$branch['pic']}";
@@ -39,7 +41,7 @@ class ColumnController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new Column(), function (Grid $grid) {
+        return Grid::make(new Model(), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('parent_id');
             $grid->column('title')->tree();
@@ -48,7 +50,7 @@ class ColumnController extends AdminController
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-                $filter->equal('parent_id')->select(Column::selectOptions());
+                $filter->like('parent_id')->select(Column::selectOptions());
             });
 
             $grid->showQuickEditButton();
@@ -67,7 +69,7 @@ class ColumnController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new Column(), function (Show $show) {
+        return Show::make($id, new Model(), function (Show $show) {
 
         });
     }
@@ -79,9 +81,9 @@ class ColumnController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new Column(), function (Form $form) {
+        return Form::make(new Model(), function (Form $form) {
             $form->tab('基本信息', function ($form) {
-                $form->select('parent_id')->options(Column::selectOptions())->required();
+                $form->select('parent_id')->options(Model::selectOptions())->required();
                 $form->text('title')->required();
                 $form->number('order');
                 $form->image('pic');
