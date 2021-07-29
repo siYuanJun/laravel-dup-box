@@ -22,7 +22,7 @@ if (!function_exists('getStatus')) {
  * @param $status
  */
 if (!function_exists('reply')) {
-    function reply($message = "ok", $code = 0, $data = null)
+    function reply($message = "ok", $code = 0, $data = null): array
     {
         if (!is_string($message) && $data == null) {
             $data = $message;
@@ -158,5 +158,12 @@ if (!function_exists("arr_to_xml")) {
             $str .= "</xml>";
         }
         return $str;
+    }
+}
+
+if (!function_exists("imgUrl")) {
+    function imgUrl($pic): string
+    {
+        return env("APP_URL") . '/uploads/' . $pic;
     }
 }

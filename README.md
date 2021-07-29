@@ -7,6 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel-Api-Dome
+### 关于 Dup-Api
 
-- 盒子初始化使用
+##### 模块进程
+
+|名称|标识|状态|
+|:---|:---|:---|
+|||
+
+

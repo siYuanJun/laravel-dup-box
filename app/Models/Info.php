@@ -17,4 +17,9 @@ class Info extends Model
     {
         return $this->belongsTo(Column::class,"classid");
     }
+
+    public function getExtVal(array $id)
+    {
+        return Ext::whereIn('id', $id)->get(['id', 'title']);
+    }
 }

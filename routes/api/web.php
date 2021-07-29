@@ -23,4 +23,14 @@ Route::group([
     $router->any("/test", function () {
         echo "web test";
     });
+
+    $router->get("/column/list/{parent_id?}", "ColumnController@list")
+        ->where(['parent_id' => '[0-9]+']);
+    $router->get("/column/details/{id}", "ColumnController@details")
+        ->where(['id' => '[0-9]+']);
+
+    $router->get("/info/list/{classid?}", "InfoController@list")
+        ->where(['classid' => '[0-9]+']);
+    $router->get("/info/details/{id}", "InfoController@details")
+        ->where(['id' => '[0-9]+']);
 });
