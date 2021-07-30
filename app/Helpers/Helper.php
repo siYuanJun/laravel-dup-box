@@ -164,6 +164,6 @@ if (!function_exists("arr_to_xml")) {
 if (!function_exists("imgUrl")) {
     function imgUrl($pic): string
     {
-        return env("APP_URL") . '/uploads/' . $pic;
+        return $pic ? env("APP_URL") . '/uploads/' . $pic : '';
     }
 }

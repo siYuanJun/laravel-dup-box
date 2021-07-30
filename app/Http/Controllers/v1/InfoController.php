@@ -32,7 +32,7 @@ class InfoController extends Controller implements InfoInter
     public function list(int $classid = 0): array
     {
         return reply(
-            $this->model->where(['classid' => $classid])->get()->map(function($val) {
+            $this->model->where(['classid' => $classid])->paginate(15)->map(function($val) {
                 return $this->forVal($val);
             })
         );
