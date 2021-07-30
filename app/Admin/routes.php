@@ -18,5 +18,6 @@ Route::group([
     $router->resource('/ext', 'ExtController');
     $router->resource('/info', 'InfoController');
     $router->resource('/ad', 'AdController');
+    $router->resource('/moban', 'MobanController');
 
 });

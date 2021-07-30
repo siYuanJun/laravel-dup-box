@@ -88,9 +88,9 @@ class ExtController extends AdminController
                 $form->number('order');
                 $form->image('pic');
             });
-            $form->tab('内容信息', function ($form) {
-                $form->ckeditor('content', '内容');
-            });
+//            $form->tab('内容信息', function ($form) {
+//                $form->ckeditor('content', '内容');
+//            });
         });
     }
 }

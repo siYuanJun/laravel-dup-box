@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Column;
+use App\Models\Moban;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -14,23 +15,23 @@ use Dcat\Admin\Tree;
 
 class ColumnController extends AdminController
 {
-    public function index(Content $content)
-    {
-        return $content->header(admin_trans_label())
-            ->body(function (Row $row) {
-                $tree = new Tree(new Column);
-                $tree->branch(function ($branch) {
-                    if($branch['pic']) {
-                        $src = "/uploads/{$branch['pic']}";
-                        $logo = "<img src='{$src}' style='max-width:30px;max-height:30px' class='img'/>";
-                        return "{$branch['id']} - {$branch['title']} $logo";
-                    } else {
-                        return "{$branch['id']} - {$branch['title']}";
-                    }
-                });
-                $row->column(12, $tree);
-            });
-    }
+//    public function index(Content $content)
+//    {
+//        return $content->header(admin_trans_label())
+//            ->body(function (Row $row) {
+//                $tree = new Tree(new Column);
+//                $tree->branch(function ($branch) {
+//                    if($branch['pic']) {
+//                        $src = "/uploads/{$branch['pic']}";
+//                        $logo = "<img src='{$src}' style='max-width:30px;max-height:30px' class='img'/>";
+//                        return "{$branch['id']} - {$branch['title']} $logo";
+//                    } else {
+//                        return "{$branch['id']} - {$branch['title']}";
+//                    }
+//                });
+//                $row->column(12, $tree);
+//            });
+//    }
 
     /**
      * Make a grid builder.
@@ -41,9 +42,8 @@ class ColumnController extends AdminController
     {
         return Grid::make(new Column(), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('parent_id');
             $grid->column('title')->tree();
-            $grid->image('pic');
+            $grid->column('moban_id');
             $grid->column('order')->orderable();
 
             $grid->filter(function (Grid\Filter $filter) {
@@ -51,10 +51,10 @@ class ColumnController extends AdminController
                 $filter->equal('parent_id')->select(Column::selectOptions());
             });
 
-            $grid->showQuickEditButton();
+//            $grid->showQuickEditButton();
             $grid->enableDialogCreate();
-//            $grid->disableBatchDelete();
-//            $grid->disableViewButton();
+            $grid->disableBatchDelete();
+            $grid->disableViewButton();
         });
     }
 
@@ -83,6 +83,7 @@ class ColumnController extends AdminController
             $form->tab('基本信息', function ($form) {
                 $form->select('parent_id')->options(Column::selectOptions())->required();
                 $form->text('title')->required();
+                $form->select('moban_id')->options(Moban::selectOptions());
                 $form->number('order');
                 $form->image('pic');
             });

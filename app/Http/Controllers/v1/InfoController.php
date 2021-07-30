@@ -46,8 +46,10 @@ class InfoController extends Controller implements InfoInter
      */
     public function details(int $id): array
     {
+        $query = $this->model->where(['id' => $id]);
+        $query->increment('hits');
         return reply(
-            $this->forVal($this->model->where(['id' => $id])->first())
+            $this->forVal($query->first())
         );
     }
 

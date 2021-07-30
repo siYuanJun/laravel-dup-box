@@ -22,6 +22,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection content
      * @property Grid\Column|Collection created_at
      * @property Grid\Column|Collection updated_at
+     * @property Grid\Column|Collection ad_id
+     * @property Grid\Column|Collection txt
      * @property Grid\Column|Collection name
      * @property Grid\Column|Collection version
      * @property Grid\Column|Collection detail
@@ -46,8 +48,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection classid
      * @property Grid\Column|Collection subtitle
      * @property Grid\Column|Collection author
-     * @property Grid\Column|Collection laiyuan
-     * @property Grid\Column|Collection bianji
+     * @property Grid\Column|Collection source
+     * @property Grid\Column|Collection edit_name
      * @property Grid\Column|Collection seotitle
      * @property Grid\Column|Collection keyword
      * @property Grid\Column|Collection hits
@@ -57,6 +59,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection videourl
      * @property Grid\Column|Collection migration
      * @property Grid\Column|Collection batch
+     * @property Grid\Column|Collection dir_name
+     * @property Grid\Column|Collection file_name
      * @property Grid\Column|Collection phone
      * @property Grid\Column|Collection nickname
      * @property Grid\Column|Collection sex
@@ -83,6 +87,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection content(string $label = null)
      * @method Grid\Column|Collection created_at(string $label = null)
      * @method Grid\Column|Collection updated_at(string $label = null)
+     * @method Grid\Column|Collection ad_id(string $label = null)
+     * @method Grid\Column|Collection txt(string $label = null)
      * @method Grid\Column|Collection name(string $label = null)
      * @method Grid\Column|Collection version(string $label = null)
      * @method Grid\Column|Collection detail(string $label = null)
@@ -107,8 +113,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection classid(string $label = null)
      * @method Grid\Column|Collection subtitle(string $label = null)
      * @method Grid\Column|Collection author(string $label = null)
-     * @method Grid\Column|Collection laiyuan(string $label = null)
-     * @method Grid\Column|Collection bianji(string $label = null)
+     * @method Grid\Column|Collection source(string $label = null)
+     * @method Grid\Column|Collection edit_name(string $label = null)
      * @method Grid\Column|Collection seotitle(string $label = null)
      * @method Grid\Column|Collection keyword(string $label = null)
      * @method Grid\Column|Collection hits(string $label = null)
@@ -118,6 +124,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection videourl(string $label = null)
      * @method Grid\Column|Collection migration(string $label = null)
      * @method Grid\Column|Collection batch(string $label = null)
+     * @method Grid\Column|Collection dir_name(string $label = null)
+     * @method Grid\Column|Collection file_name(string $label = null)
      * @method Grid\Column|Collection phone(string $label = null)
      * @method Grid\Column|Collection nickname(string $label = null)
      * @method Grid\Column|Collection sex(string $label = null)
@@ -149,6 +157,8 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection content
      * @property Show\Field|Collection created_at
      * @property Show\Field|Collection updated_at
+     * @property Show\Field|Collection ad_id
+     * @property Show\Field|Collection txt
      * @property Show\Field|Collection name
      * @property Show\Field|Collection version
      * @property Show\Field|Collection detail
@@ -173,8 +183,8 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection classid
      * @property Show\Field|Collection subtitle
      * @property Show\Field|Collection author
-     * @property Show\Field|Collection laiyuan
-     * @property Show\Field|Collection bianji
+     * @property Show\Field|Collection source
+     * @property Show\Field|Collection edit_name
      * @property Show\Field|Collection seotitle
      * @property Show\Field|Collection keyword
      * @property Show\Field|Collection hits
@@ -184,6 +194,8 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection videourl
      * @property Show\Field|Collection migration
      * @property Show\Field|Collection batch
+     * @property Show\Field|Collection dir_name
+     * @property Show\Field|Collection file_name
      * @property Show\Field|Collection phone
      * @property Show\Field|Collection nickname
      * @property Show\Field|Collection sex
@@ -210,6 +222,8 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection content(string $label = null)
      * @method Show\Field|Collection created_at(string $label = null)
      * @method Show\Field|Collection updated_at(string $label = null)
+     * @method Show\Field|Collection ad_id(string $label = null)
+     * @method Show\Field|Collection txt(string $label = null)
      * @method Show\Field|Collection name(string $label = null)
      * @method Show\Field|Collection version(string $label = null)
      * @method Show\Field|Collection detail(string $label = null)
@@ -234,8 +248,8 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection classid(string $label = null)
      * @method Show\Field|Collection subtitle(string $label = null)
      * @method Show\Field|Collection author(string $label = null)
-     * @method Show\Field|Collection laiyuan(string $label = null)
-     * @method Show\Field|Collection bianji(string $label = null)
+     * @method Show\Field|Collection source(string $label = null)
+     * @method Show\Field|Collection edit_name(string $label = null)
      * @method Show\Field|Collection seotitle(string $label = null)
      * @method Show\Field|Collection keyword(string $label = null)
      * @method Show\Field|Collection hits(string $label = null)
@@ -245,6 +259,8 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection videourl(string $label = null)
      * @method Show\Field|Collection migration(string $label = null)
      * @method Show\Field|Collection batch(string $label = null)
+     * @method Show\Field|Collection dir_name(string $label = null)
+     * @method Show\Field|Collection file_name(string $label = null)
      * @method Show\Field|Collection phone(string $label = null)
      * @method Show\Field|Collection nickname(string $label = null)
      * @method Show\Field|Collection sex(string $label = null)
